@@ -3,7 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 const ShortUrl = require('./Models/shortUrl')
 
-mongoose.connect('mongodb://127.0.0.1/UrlShortener',{
+mongoose.connect('mongodb://localhost/UrlShortener',{
 useNewURLParser: true, useUnifiedTopology:true
 })
 .then(() => console.log('MongoDB Connected...'))
@@ -16,7 +16,7 @@ app.use(express.urlencoded({extended:false}))
 
 app.get('/',async(req,res)=>{
     const shortUrls = await ShortUrl.find();
-    res.render('index',{shortURLs:shortUrls})
+    res.render('index',{shortUrls:shortUrls})
 })
 
 app.post('/shortUrls',async(req,res)=>{
@@ -32,4 +32,4 @@ app.get('/:shortUrl',async(req,res)=>{
     res.redirect(shortUrl.full)
 })
 
-app.listen(process.env.PORT||27017);
+app.listen(process.env.PORT||4000);
